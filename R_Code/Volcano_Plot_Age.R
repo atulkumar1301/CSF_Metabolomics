@@ -22,7 +22,7 @@ p <- p + geom_hline (aes(yintercept=-log10(0.05), linetype = "p-value 0.05", col
 p <- p + scale_color_manual(values=cbbPalette, limits = force) + theme_light()
 p <- p + scale_x_continuous(breaks = round(seq(-6.3, 11.5, by = 2),1))
 p <- p + scale_y_continuous(breaks = round (seq (0, 94, by = 5), 1))
-p <- p + xlab ("Effect") + labs (color = "Regulation")
+p <- p + xlab ("Effect") + labs (color = "Regulation") + ylab (expression (-log[10]~(P)))
 p <- p +
   theme(legend.position="left",
                plot.title = element_text(family = "serif", size=18, face = "bold", hjust = 0.5),
