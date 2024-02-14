@@ -13,8 +13,8 @@ j <- 1
 for (i in colnames (df)) {
   if (i %in% colnames (df_2)) next
   modeldata <- glm (Age ~ 1, family=gaussian, data = df)
-  N_P <- RankNorm (df[[i]])
-  model <- glm (Age ~ N_P, data = df, family=gaussian)
+  N_P <- df[[i]]
+  model <- glm (Age ~ N_P + Gender, data = df, family=gaussian)
   lreg.or <-exp(cbind(OR = coef(model)))
   TABLE[j, 1] <- i
   TABLE[j,2] <- summary(model)$coefficients[2, "Estimate"]
@@ -30,4 +30,4 @@ for (i in colnames (df)) {
   TABLE[j,10] <- BIC (model)
   j <- j + 1
 }
-write.table (TABLE, (file = paste0 ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_1/6_Result_Data_Analysis_Age_Raw.txt")), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
+write.table (TABLE, (file = paste0 ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_1/6_Result_Data_Analysis_Age_Raw_Adjusted.txt")), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
