@@ -15,13 +15,13 @@ df <- fread ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_1/8_Full
 p <- ggplot (data = df, aes (x = Effect, y = -log10(P), col = Regulation, label = Label))+
   geom_point ()+ geom_text_repel(max.overlaps = Inf, show.legend  = F)
 p <- p + geom_hline (aes(yintercept=-log10(0.05), linetype = "p-value 0.05", col="black")) +
-  geom_hline (aes (yintercept=-log10(0.044), linetype = "FDR p-value 0.05", col="#D55E00")) +
+  geom_hline (aes (yintercept=-log10(0.042), linetype = "FDR p-value 0.05", col="#D55E00")) +
   scale_linetype_manual(name = "p-value cut off", values = c(2, 2), 
                         guide = guide_legend(override.aes = list(color = c("black", "#D55E00"))))
 #p <- p + geom_vline(xintercept=c(-0.165879033,  0.128549555), col="black")
 p <- p + scale_color_manual(values=cbbPalette, limits = force) + theme_light()
-p <- p + scale_x_continuous(breaks = round(seq(-7, 12, by = 1),1))
-p <- p + scale_y_continuous(breaks = round (seq (0, 94, by = 5), 1))
+p <- p + scale_x_continuous(breaks = round(seq(-15, 50, by = 5),1))
+p <- p + scale_y_continuous(breaks = round (seq (0, 60, by = 5), 1))
 p <- p + xlab ("Effect") + labs (color = "Regulation") + ylab (expression (-log[10]~(P)))
 p <- p +
   theme(legend.position="left",
