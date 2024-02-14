@@ -19,8 +19,8 @@ p <- p + geom_hline (aes(yintercept=-log10(0.05), linetype = "p-value 0.05", col
   scale_linetype_manual(name = "p-value cut off", values = c(2, 2), 
                         guide = guide_legend(override.aes = list(color = c("black", "#D55E00"))))
 p <- p + scale_color_manual(values=cbbPalette, limits = force) + theme_light()
-p <- p + scale_x_continuous(breaks = round(seq(-7, 12, by = 1),1))
-p <- p + scale_y_continuous(breaks = round (seq (0, 95, by = 5), 1))
+p <- p + scale_x_continuous(breaks = round(seq(-20, 60, by = 5),1))
+p <- p + scale_y_continuous(breaks = round (seq (0, 61, by = 5), 1))
 p <- p + xlab ("Effect") + labs (color = "Regulation") + ylab (expression (-log[10]~(P)))
 p <- p +
   theme(legend.position="left",
