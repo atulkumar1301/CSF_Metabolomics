@@ -7,14 +7,14 @@ library(scales)
 args <- commandArgs(trailingOnly = TRUE)
 TABLE<-as.data.frame(matrix(ncol=10, nrow=369))
 names(TABLE)<-c("Biomarker", "Effect", "OR","SE", "P", "R2", "L95", "U95", "AIC", "BIC")
-  df <- fread (file = "/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_1/Sex_Stratified/Female/5_Female_Data_Analysis_1_Full_Imputed.txt")
+df <- fread (file = "/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_1/Sex_Stratified/Female/5_Female_Data_Analysis_1_Full_Imputed.txt")
 df_2 <- df [,1:29]
 j <- 1
 for (i in colnames (df)) {
   if (i %in% colnames (df_2)) next
   modeldata <- glm (Age ~ 1, family=gaussian, data = df)
   N_P <- df[[i]]
-  model <- glm (Age ~ N_P + Gender, data = df, family=gaussian)
+  model <- glm (Age ~ N_P, data = df, family=gaussian)
   lreg.or <-exp(cbind(OR = coef(model)))
   TABLE[j, 1] <- i
   TABLE[j,2] <- summary(model)$coefficients[2, "Estimate"]
