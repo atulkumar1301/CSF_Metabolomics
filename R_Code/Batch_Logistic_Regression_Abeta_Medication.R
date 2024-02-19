@@ -10,7 +10,7 @@ names(TABLE)<-c("Protein", "Effect", "OR","SE", "P", "R2", "AUC", "L95", "U95", 
 #df <- fread (file = paste0 ("/Volumes/ATUL_6TB/Work/Projects/Emma_Project/Infracts/", args[1]))
 df <- fread (file = "/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/A_Beta/5_Data_Full_Imputed_Analysis_A_beta.txt")
 #df_mb <- df[df$MB_dich == 0 | df$MB_dich == 1]
-df_2 <- df [,1:35]
+df_2 <- df [,1:37]
 j <- 1
 for (i in colnames (df)) {
   if (i %in% colnames (df_2)) next
