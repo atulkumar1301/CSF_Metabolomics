@@ -71,16 +71,16 @@ for (i in colnames (df)) {
 }
 TABLE_Ab$P_Bonferroni <- p.adjust(TABLE_Ab$P, method = "bonferroni", n = length(TABLE_Ab$P))
 TABLE_Ab$P_FDR <- p.adjust(TABLE_Ab$P, method = "fdr", n = length(TABLE_Ab$P))
-write.TABLE_Ab (TABLE_Ab, (file = paste0 ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/All_Combined/6_Result_Data_Analysis_Ab.txt")), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
+write.table (TABLE_Ab, (file = paste0 ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/All_Combined/6_Result_Data_Analysis_Ab.txt")), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
 
 TABLE_Tau$P_Bonferroni <- p.adjust(TABLE_Tau$P, method = "bonferroni", n = length(TABLE_Tau$P))
 TABLE_Tau$P_FDR <- p.adjust(TABLE_Tau$P, method = "fdr", n = length(TABLE_Tau$P))
-write.TABLE_Tau (TABLE_Tau, (file = paste0 ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/All_Combined/6_Result_Data_Analysis_Taupet.txt")), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
+write.table (TABLE_Tau, (file = paste0 ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/All_Combined/6_Result_Data_Analysis_Taupet.txt")), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
 
 TABLE_Asyn$P_Bonferroni <- p.adjust(TABLE_Asyn$P, method = "bonferroni", n = length(TABLE_Asyn$P))
 TABLE_Asyn$P_FDR <- p.adjust(TABLE_Asyn$P, method = "fdr", n = length(TABLE_Asyn$P))
-write.TABLE_Asyn (TABLE_Asyn, (file = paste0 ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/All_Combined/6_Result_Data_Analysis_Asyn.txt")), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
+write.table (TABLE_Asyn, (file = paste0 ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/All_Combined/6_Result_Data_Analysis_Asyn.txt")), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
 
 TABLE_WMH$P_Bonferroni <- p.adjust(TABLE_WMH$P, method = "bonferroni", n = length(TABLE_WMH$P))
 TABLE_WMH$P_FDR <- p.adjust(TABLE_WMH$P, method = "fdr", n = length(TABLE_WMH$P))
-write.TABLE_WMH (TABLE_WMH, (file = paste0 ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/All_Combined/6_Result_Data_Analysis_WML.txt")), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
+write.table (TABLE_WMH, (file = paste0 ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/All_Combined/6_Result_Data_Analysis_WML.txt")), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
