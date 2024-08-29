@@ -4,23 +4,26 @@ library(ROCR)
 library(pROC)
 library(RNOmni)
 library(scales)
+library(tibble)
 args <- commandArgs(trailingOnly = TRUE)
-TABLE_Ab<-as.data.frame(matrix(ncol=10, nrow=369))
-TABLE_Tau<-as.data.frame(matrix(ncol=10, nrow=369))
-TABLE_Asyn<-as.data.frame(matrix(ncol=10, nrow=369))
-TABLE_WMH<-as.data.frame(matrix(ncol=10, nrow=369))
+TABLE_Ab<-as.data.frame(matrix(ncol=10, nrow=380))
+TABLE_Tau<-as.data.frame(matrix(ncol=10, nrow=380))
+TABLE_Asyn<-as.data.frame(matrix(ncol=10, nrow=380))
+TABLE_WMH<-as.data.frame(matrix(ncol=10, nrow=380))
 names(TABLE_Ab)<-c("Biomarker", "Effect", "OR","SE", "P", "R2", "L95", "U95", "AIC", "BIC")
 names(TABLE_Tau)<-c("Biomarker", "Effect", "OR","SE", "P", "R2", "L95", "U95", "AIC", "BIC")
 names(TABLE_Asyn)<-c("Biomarker", "Effect", "OR","SE", "P", "R2", "L95", "U95", "AIC", "BIC")
 names(TABLE_WMH)<-c("Biomarker", "Effect", "OR","SE", "P", "R2", "L95", "U95", "AIC", "BIC")
 df <- fread (file = "/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/All_Combined/5_Data_Full_Imputed_Analysis.txt")
-df_2 <- df [,1:39]
+d_1 <- rescale(df$samseg_wmhs_WMH_total_mm3, to = c (0, 1))
+df <- add_column(df, DV = d_1, .after = 2)
+df_2 <- df [,1:40]
 j <- 1
 for (i in colnames (df)) {
   if (i %in% colnames (df_2)) next
-  modeldata <- glm (tnic_cho_com_I_IV ~ 1, family=gaussian, data = df)
   N_P <- df[[i]]
-  model <- glm (N_P ~ Abnormal_CSF_Ab42_Ab40_Ratio + tnic_cho_com_I_IV + SAA_Status + samseg_wmhs_WMH_total_mm3 + icv_mm3 + Age + Gender + Recruitment_Bias, data = df, family=gaussian)
+  modeldata <- glm (N_P ~ 1, family=gaussian, data = df)
+  model <- glm (N_P ~ Abnormal_CSF_Ab42_Ab40_Ratio + tnic_cho_com_I_IV + SAA_Status + DV + Age + Gender + Recruitment_Bias, data = df, family=gaussian)
   lreg.or <-exp(cbind(OR = coef(model)))
   l0 <- deviance(modeldata);df0 <- df.residual(modeldata)
   l1 <- deviance(model);df1 <- df.residual(model)
