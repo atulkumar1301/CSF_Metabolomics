@@ -30,4 +30,6 @@ for (i in colnames (df)) {
   TABLE[j,10] <- BIC (model)
   j <- j + 1
 }
+TABLE$P_Bonferroni <- p.adjust(TABLE$P, method = "bonferroni", n = length(TABLE$P))
+TABLE$P_FDR <- p.adjust(TABLE$P, method = "fdr", n = length(TABLE$P))
 write.table (TABLE, (file = paste0 ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/TauPET/6_Result_Data_Analysis_Taupet.txt")), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
