@@ -14,7 +14,7 @@ for (i in colnames (df)) {
   if (i %in% colnames (df_2)) next
   modeldata <- glm (tnic_cho_com_I_IV ~ 1, family=gaussian, data = df)
   N_P <- df[[i]]
-  model <- glm (tnic_cho_com_I_IV ~ N_P + Age + Gender + Recruitment_Bias, data = df, family=gaussian)
+  model <- glm (tnic_cho_com_I_IV ~ N_P + Age + Gender + Recruitment_Bias + mean_standardized_metabolomic_level, data = df, family=gaussian)
   lreg.or <-exp(cbind(OR = coef(model)))
   TABLE[j, 1] <- i
   TABLE[j,2] <- summary(model)$coefficients[2, "Estimate"]
