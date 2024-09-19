@@ -16,7 +16,7 @@ for (i in colnames (df)) {
   if (i %in% colnames (df_2)) next
   modeldata <- glm (Abnormal_CSF_Ab42_Ab40_Ratio ~ 1, family=binomial (link = 'logit'), data = df)
   N_P <- df[[i]]
-  model <- glm (Abnormal_CSF_Ab42_Ab40_Ratio ~ N_P + Age + Gender + Recruitment_Bias, data = df, family = binomial (link = 'logit'))
+  model <- glm (Abnormal_CSF_Ab42_Ab40_Ratio ~ N_P + Age + Gender + Recruitment_Bias + mean_standardized_metabolomic_level, data = df, family = binomial (link = 'logit'))
   lreg.or <-exp(cbind(OR = coef(model)))
   TABLE[j, 1] <- i
   TABLE[j,2] <- summary(model)$coefficients[2, "Estimate"]
