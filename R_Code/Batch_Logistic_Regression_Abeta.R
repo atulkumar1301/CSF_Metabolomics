@@ -5,12 +5,12 @@ library(pROC)
 library(RNOmni)
 library(scales)
 args <- commandArgs(trailingOnly = TRUE)
-TABLE<-as.data.frame(matrix(ncol=11, nrow=369))
+TABLE<-as.data.frame(matrix(ncol=11, nrow=376))
 names(TABLE)<-c("Protein", "Effect", "OR","SE", "P", "R2", "AUC", "L95", "U95", "AIC", "BIC")
 #df <- fread (file = paste0 ("/Volumes/ATUL_6TB/Work/Projects/Emma_Project/Infracts/", args[1]))
 df <- fread (file = "/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/A_Beta/5_Data_Full_Imputed_Analysis.txt")
 #df_mb <- df[df$MB_dich == 0 | df$MB_dich == 1]
-df_2 <- df [,1:37]
+df_2 <- df [,1:28]
 j <- 1
 for (i in colnames (df)) {
   if (i %in% colnames (df_2)) next
