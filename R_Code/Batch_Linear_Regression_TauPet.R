@@ -5,10 +5,10 @@ library(pROC)
 library(RNOmni)
 library(scales)
 args <- commandArgs(trailingOnly = TRUE)
-TABLE<-as.data.frame(matrix(ncol=10, nrow=369))
+TABLE<-as.data.frame(matrix(ncol=10, nrow=376))
 names(TABLE)<-c("Biomarker", "Effect", "OR","SE", "P", "R2", "L95", "U95", "AIC", "BIC")
 df <- fread (file = "/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/TauPET/5_Data_Full_Imputed_Analysis_Taupet.txt")
-df_2 <- df [,1:37]
+df_2 <- df [,1:28]
 j <- 1
 for (i in colnames (df)) {
   if (i %in% colnames (df_2)) next
