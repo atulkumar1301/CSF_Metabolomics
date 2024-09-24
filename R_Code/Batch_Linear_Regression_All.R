@@ -14,7 +14,7 @@ names(TABLE_Ab)<-c("Biomarker", "Effect", "OR","SE", "P", "R2", "L95", "U95", "A
 names(TABLE_Tau)<-c("Biomarker", "Effect", "OR","SE", "P", "R2", "L95", "U95", "AIC", "BIC")
 names(TABLE_Asyn)<-c("Biomarker", "Effect", "OR","SE", "P", "R2", "L95", "U95", "AIC", "BIC")
 names(TABLE_WMH)<-c("Biomarker", "Effect", "OR","SE", "P", "R2", "L95", "U95", "AIC", "BIC")
-df <- fread (file = "/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/Metabolites/All_Combined/Full_Data_Metabolites.txt")
+df <- fread (file = "/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/Metabolites/Full_Data_Metabolites.txt")
 d_1 <- rescale(df$samseg_wmhs_WMH_total_mm3, to = c (0, 1))
 df <- add_column(df, DV = d_1, .after = 2)
 df_2 <- df [,1:29]
