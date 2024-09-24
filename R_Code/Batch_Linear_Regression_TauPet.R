@@ -7,14 +7,14 @@ library(scales)
 args <- commandArgs(trailingOnly = TRUE)
 TABLE<-as.data.frame(matrix(ncol=10, nrow=376))
 names(TABLE)<-c("Biomarker", "Effect", "OR","SE", "P", "R2", "L95", "U95", "AIC", "BIC")
-df <- fread (file = "/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/TauPET/5_Data_Full_Imputed_Analysis_Taupet.txt")
+df <- fread (file = "/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/Metabolites/Full_Data_Metabolites.txt")
 df_2 <- df [,1:28]
 j <- 1
 for (i in colnames (df)) {
   if (i %in% colnames (df_2)) next
-  modeldata <- glm (tnic_cho_com_I_IV ~ 1, family=gaussian, data = df)
   N_P <- df[[i]]
-  model <- glm (tnic_cho_com_I_IV ~ N_P + Age + Gender + Recruitment_Bias + mean_standardized_metabolomic_level, data = df, family=gaussian)
+  modeldata <- glm (N_P ~ 1, family=gaussian, data = df)
+  model <- glm (N_P ~ tnic_cho_com_I_IV + Age + Gender + Recruitment_Bias + mean_standardized_metabolomic_level, data = df, family=gaussian)
   lreg.or <-exp(cbind(OR = coef(model)))
   TABLE[j, 1] <- i
   TABLE[j,2] <- summary(model)$coefficients[2, "Estimate"]
@@ -32,4 +32,4 @@ for (i in colnames (df)) {
 }
 TABLE$P_Bonferroni <- p.adjust(TABLE$P, method = "bonferroni", n = length(TABLE$P))
 TABLE$P_FDR <- p.adjust(TABLE$P, method = "fdr", n = length(TABLE$P))
-write.table (TABLE, (file = paste0 ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/TauPET/6_Result_Data_Analysis_Taupet.txt")), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
+write.table (TABLE, (file = paste0 ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/Metabolites/TauPET/6_Result_Data_Analysis_Taupet.txt")), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
