@@ -14,16 +14,16 @@ names(TABLE_Ab)<-c("Biomarker", "Effect", "OR","SE", "P", "R2", "L95", "U95", "A
 names(TABLE_Tau)<-c("Biomarker", "Effect", "OR","SE", "P", "R2", "L95", "U95", "AIC", "BIC")
 names(TABLE_Asyn)<-c("Biomarker", "Effect", "OR","SE", "P", "R2", "L95", "U95", "AIC", "BIC")
 names(TABLE_WMH)<-c("Biomarker", "Effect", "OR","SE", "P", "R2", "L95", "U95", "AIC", "BIC")
-df <- fread (file = "/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/All_Combined/5_Data_Full_Imputed_Analysis.txt")
+df <- fread (file = "/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/Metabolites/All_Combined/Full_Data_Metabolites.txt")
 d_1 <- rescale(df$samseg_wmhs_WMH_total_mm3, to = c (0, 1))
 df <- add_column(df, DV = d_1, .after = 2)
-df_2 <- df [,1:40]
+df_2 <- df [,1:29]
 j <- 1
 for (i in colnames (df)) {
   if (i %in% colnames (df_2)) next
   N_P <- df[[i]]
   modeldata <- glm (N_P ~ 1, family=gaussian, data = df)
-  model <- glm (N_P ~ Abnormal_CSF_Ab42_Ab40_Ratio + tnic_cho_com_I_IV + SAA_Status + DV + Age + Gender + Recruitment_Bias, data = df, family=gaussian)
+  model <- glm (N_P ~ Abnormal_CSF_Ab42_Ab40_Ratio + tnic_cho_com_I_IV + SAA_Status + DV + Age + Gender + Recruitment_Bias + mean_standardized_metabolomic_level, data = df, family=gaussian)
   lreg.or <-exp(cbind(OR = coef(model)))
   l0 <- deviance(modeldata);df0 <- df.residual(modeldata)
   l1 <- deviance(model);df1 <- df.residual(model)
@@ -74,16 +74,16 @@ for (i in colnames (df)) {
 }
 TABLE_Ab$P_Bonferroni <- p.adjust(TABLE_Ab$P, method = "bonferroni", n = length(TABLE_Ab$P))
 TABLE_Ab$P_FDR <- p.adjust(TABLE_Ab$P, method = "fdr", n = length(TABLE_Ab$P))
-write.table (TABLE_Ab, (file = paste0 ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/All_Combined/6_Result_Data_Analysis_Ab.txt")), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
+write.table (TABLE_Ab, (file = paste0 ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/Metabolites/All_Combined/6_Result_Data_Analysis_Ab.txt")), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
 
 TABLE_Tau$P_Bonferroni <- p.adjust(TABLE_Tau$P, method = "bonferroni", n = length(TABLE_Tau$P))
 TABLE_Tau$P_FDR <- p.adjust(TABLE_Tau$P, method = "fdr", n = length(TABLE_Tau$P))
-write.table (TABLE_Tau, (file = paste0 ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/All_Combined/6_Result_Data_Analysis_Taupet.txt")), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
+write.table (TABLE_Tau, (file = paste0 ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/Metabolites/All_Combined/6_Result_Data_Analysis_Taupet.txt")), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
 
 TABLE_Asyn$P_Bonferroni <- p.adjust(TABLE_Asyn$P, method = "bonferroni", n = length(TABLE_Asyn$P))
 TABLE_Asyn$P_FDR <- p.adjust(TABLE_Asyn$P, method = "fdr", n = length(TABLE_Asyn$P))
-write.table (TABLE_Asyn, (file = paste0 ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/All_Combined/6_Result_Data_Analysis_Asyn.txt")), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
+write.table (TABLE_Asyn, (file = paste0 ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/Metabolites/All_Combined/6_Result_Data_Analysis_Asyn.txt")), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
 
 TABLE_WMH$P_Bonferroni <- p.adjust(TABLE_WMH$P, method = "bonferroni", n = length(TABLE_WMH$P))
 TABLE_WMH$P_FDR <- p.adjust(TABLE_WMH$P, method = "fdr", n = length(TABLE_WMH$P))
-write.table (TABLE_WMH, (file = paste0 ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/All_Combined/6_Result_Data_Analysis_WML.txt")), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
+write.table (TABLE_WMH, (file = paste0 ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/Metabolites/All_Combined/6_Result_Data_Analysis_WML.txt")), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
