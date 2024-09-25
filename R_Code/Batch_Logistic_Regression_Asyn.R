@@ -7,20 +7,20 @@ library(scales)
 args <- commandArgs(trailingOnly = TRUE)
 TABLE<-as.data.frame(matrix(ncol=11, nrow=369))
 names(TABLE)<-c("Protein", "Effect", "OR","SE", "P", "R2", "AUC", "L95", "U95", "AIC", "BIC")
-df <- fread (file = "/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/A_Syn/5_Data_Full_Imputed_Analysis_A_Syn.txt")
-df_2 <- df [,1:37]
+df <- fread (file = "/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/Metabolites/Full_Data_Metabolites.txt")
+df_2 <- df [,1:28]
 j <- 1
 for (i in colnames (df)) {
   if (i %in% colnames (df_2)) next
-  modeldata <- glm (SAA_Status ~ 1, family=binomial (link = 'logit'), data = df)
   N_P <- df[[i]]
-  model <- glm (SAA_Status ~ N_P + Age + Gender + Recruitment_Bias, data = df, family = binomial (link = 'logit'))
+  modeldata <- glm (N_P ~ 1, family=gaussian, data = df)
+  model <- glm (N_P ~ SAA_Status + Age + Gender + Recruitment_Bias + mean_standardized_metabolomic_level, data = df, family=gaussian)
   lreg.or <-exp(cbind(OR = coef(model)))
   TABLE[j, 1] <- i
   TABLE[j,2] <- summary(model)$coefficients[2, "Estimate"]
   TABLE[j,3] <- lreg.or[2]
   TABLE[j,4] <- summary(model)$coefficients[2, "Std. Error"]
-  TABLE[j,5] <- summary(model)$coefficients[2, "Pr(>|z|)"]
+  TABLE[j,5] <- summary(model)$coefficients[2, "Pr(>|t|)"]
   l0 <- deviance(modeldata);df0 <- df.residual(modeldata)
   l1 <- deviance(model);df1 <- df.residual(model)
   TABLE[j,6] <- (1 - exp((l1 - l0)/nrow(df)))/(1 - exp( - l0/nrow(df)))        #Nagelkerke
@@ -35,4 +35,4 @@ for (i in colnames (df)) {
 }
 TABLE$P_Bonferroni <- p.adjust(TABLE$P, method = "bonferroni", n = length(TABLE$P))
 TABLE$P_FDR <- p.adjust(TABLE$P, method = "fdr", n = length(TABLE$P))
-write.table (TABLE, (file = paste0 ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/A_Syn/6_Result_Data_Analysis_A_Syn.txt")), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
+write.table (TABLE, (file = paste0 ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/Metabolites/A_Syn/6_Result_Data_Analysis_A_Syn.txt")), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
