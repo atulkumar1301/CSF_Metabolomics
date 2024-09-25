@@ -8,18 +8,18 @@ library(tibble)
 args <- commandArgs(trailingOnly = TRUE)
 TABLE<-as.data.frame(matrix(ncol=10, nrow=369))
 names(TABLE)<-c("Biomarker", "Effect", "OR","SE", "P", "R2", "L95", "U95", "AIC", "BIC")
-df <- fread (file = "/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/WML/5_Data_Full_Imputed_Analysis_WML.txt")
+df <- fread (file = "/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/Metabolites/Full_Data_Metabolites.txt")
 j <- 1
 d_1 <- rescale(df$samseg_wmhs_WMH_total_mm3, to = c (0, 1))
 #d_2 <- rescale(df$icv_mm3, to = c (0, 1))
 df <- add_column(df, DV = d_1, .after = 2)
 #df <- add_column(df, Cov = d_2, .after = 2)
-df_2 <- df [,1:41]
+df_2 <- df [,1:29]
 for (i in colnames (df)) {
   if (i %in% colnames (df_2)) next
-  modeldata <- glm (DV ~ 1, family=gaussian, data = df)
   N_P <- df[[i]]
-  model <- glm (DV ~ N_P + Age + Gender + Recruitment_Bias + icv_mm3, data = df, family=gaussian)
+  modeldata <- glm (N_P ~ 1, family=gaussian, data = df)
+  model <- glm (N_P ~ DV + Age + Gender + Recruitment_Bias + icv_mm3 + mean_standardized_metabolomic_level, data = df, family=gaussian)
   lreg.or <-exp(cbind(OR = coef(model)))
   TABLE[j, 1] <- i
   TABLE[j,2] <- summary(model)$coefficients[2, "Estimate"]
@@ -37,4 +37,4 @@ for (i in colnames (df)) {
 }
 TABLE$P_Bonferroni <- p.adjust(TABLE$P, method = "bonferroni", n = length(TABLE$P))
 TABLE$P_FDR <- p.adjust(TABLE$P, method = "fdr", n = length(TABLE$P))
-write.table (TABLE, (file = paste0 ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/WML/6_Result_Data_Analysis_WML.txt")), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
+write.table (TABLE, (file = paste0 ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/Metabolites/WML/6_Result_Data_Analysis_WML.txt")), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
