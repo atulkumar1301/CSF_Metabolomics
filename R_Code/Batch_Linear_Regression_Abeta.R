@@ -5,8 +5,8 @@ library(pROC)
 library(RNOmni)
 library(scales)
 args <- commandArgs(trailingOnly = TRUE)
-TABLE<-as.data.frame(matrix(ncol=11, nrow=376))
-names(TABLE)<-c("Protein", "Effect", "OR","SE", "P", "R2", "AUC", "L95", "U95", "AIC", "BIC")
+TABLE<-as.data.frame(matrix(ncol=12, nrow=376))
+names(TABLE)<-c("Protein", "Effect", "OR","SE", "P", "R2", "AUC", "L95", "U95", "AIC", "BIC", "t Value")
 df <- fread (file = "/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/Metabolites/Full_Data_Metabolites.txt")
 df_2 <- df [,1:28]
 j <- 1
@@ -31,6 +31,7 @@ for (i in colnames (df)) {
   TABLE[j,9] <- confint(model) [2,2]
   TABLE[j,10] <- AIC (model)
   TABLE[j,11] <- BIC (model)
+  TABLE[j,12] <- summary(model)$coefficients[2, "t value"]
   j <- j + 1
 }
 TABLE$P_Bonferroni <- p.adjust(TABLE$P, method = "bonferroni", n = length(TABLE$P))
