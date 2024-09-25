@@ -6,14 +6,14 @@ library(RNOmni)
 library(scales)
 library(tibble)
 args <- commandArgs(trailingOnly = TRUE)
-TABLE_Ab<-as.data.frame(matrix(ncol=10, nrow=376))
-TABLE_Tau<-as.data.frame(matrix(ncol=10, nrow=376))
-TABLE_Asyn<-as.data.frame(matrix(ncol=10, nrow=376))
-TABLE_WMH<-as.data.frame(matrix(ncol=10, nrow=376))
-names(TABLE_Ab)<-c("Biomarker", "Effect", "OR","SE", "P", "R2", "L95", "U95", "AIC", "BIC")
-names(TABLE_Tau)<-c("Biomarker", "Effect", "OR","SE", "P", "R2", "L95", "U95", "AIC", "BIC")
-names(TABLE_Asyn)<-c("Biomarker", "Effect", "OR","SE", "P", "R2", "L95", "U95", "AIC", "BIC")
-names(TABLE_WMH)<-c("Biomarker", "Effect", "OR","SE", "P", "R2", "L95", "U95", "AIC", "BIC")
+TABLE_Ab<-as.data.frame(matrix(ncol=11, nrow=376))
+TABLE_Tau<-as.data.frame(matrix(ncol=11, nrow=376))
+TABLE_Asyn<-as.data.frame(matrix(ncol=11, nrow=376))
+TABLE_WMH<-as.data.frame(matrix(ncol=11, nrow=376))
+names(TABLE_Ab)<-c("Biomarker", "Effect", "OR","SE", "P", "R2", "L95", "U95", "AIC", "BIC", "t Value")
+names(TABLE_Tau)<-c("Biomarker", "Effect", "OR","SE", "P", "R2", "L95", "U95", "AIC", "BIC", "t Value")
+names(TABLE_Asyn)<-c("Biomarker", "Effect", "OR","SE", "P", "R2", "L95", "U95", "AIC", "BIC", "t Value")
+names(TABLE_WMH)<-c("Biomarker", "Effect", "OR","SE", "P", "R2", "L95", "U95", "AIC", "BIC", "t Value")
 df <- fread (file = "/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/Metabolites/Full_Data_Metabolites.txt")
 d_1 <- rescale(df$samseg_wmhs_WMH_total_mm3, to = c (0, 1))
 df <- add_column(df, DV = d_1, .after = 2)
@@ -37,6 +37,7 @@ for (i in colnames (df)) {
   TABLE_Ab[j,8] <- confint(model) [2,2]
   TABLE_Ab[j,9] <- AIC (model)
   TABLE_Ab[j,10] <- BIC (model)
+  TABLE[j,11] <- summary(model)$coefficients[2, "t value"]
   
   TABLE_Tau[j, 1] <- i
   TABLE_Tau[j,2] <- summary(model)$coefficients[3, "Estimate"]
@@ -48,6 +49,7 @@ for (i in colnames (df)) {
   TABLE_Tau[j,8] <- confint(model) [2,2]
   TABLE_Tau[j,9] <- AIC (model)
   TABLE_Tau[j,10] <- BIC (model)
+  TABLE[j,11] <- summary(model)$coefficients[3, "t value"]
   
   TABLE_Asyn[j, 1] <- i
   TABLE_Asyn[j,2] <- summary(model)$coefficients[4, "Estimate"]
@@ -59,6 +61,7 @@ for (i in colnames (df)) {
   TABLE_Asyn[j,8] <- confint(model) [2,2]
   TABLE_Asyn[j,9] <- AIC (model)
   TABLE_Asyn[j,10] <- BIC (model)
+  TABLE[j,11] <- summary(model)$coefficients[4, "t value"]
   
   TABLE_WMH[j, 1] <- i
   TABLE_WMH[j,2] <- summary(model)$coefficients[5, "Estimate"]
@@ -70,6 +73,7 @@ for (i in colnames (df)) {
   TABLE_WMH[j,8] <- confint(model) [2,2]
   TABLE_WMH[j,9] <- AIC (model)
   TABLE_WMH[j,10] <- BIC (model)
+  TABLE[j,11] <- summary(model)$coefficients[5, "t value"]
   j <- j + 1
 }
 TABLE_Ab$P_Bonferroni <- p.adjust(TABLE_Ab$P, method = "bonferroni", n = length(TABLE_Ab$P))
