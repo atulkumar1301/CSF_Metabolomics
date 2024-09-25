@@ -6,8 +6,8 @@ library(RNOmni)
 library(scales)
 library(tibble)
 args <- commandArgs(trailingOnly = TRUE)
-TABLE<-as.data.frame(matrix(ncol=10, nrow=369))
-names(TABLE)<-c("Biomarker", "Effect", "OR","SE", "P", "R2", "L95", "U95", "AIC", "BIC")
+TABLE<-as.data.frame(matrix(ncol=11, nrow=376))
+names(TABLE)<-c("Biomarker", "Effect", "OR","SE", "P", "R2", "L95", "U95", "AIC", "BIC", "t Value")
 df <- fread (file = "/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/Metabolites/Full_Data_Metabolites.txt")
 j <- 1
 d_1 <- rescale(df$samseg_wmhs_WMH_total_mm3, to = c (0, 1))
@@ -33,6 +33,7 @@ for (i in colnames (df)) {
   TABLE[j,8] <- confint(model) [2,2]
   TABLE[j,9] <- AIC (model)
   TABLE[j,10] <- BIC (model)
+  TABLE[j,11] <- summary(model)$coefficients[2, "t value"]
   j <- j + 1
 }
 TABLE$P_Bonferroni <- p.adjust(TABLE$P, method = "bonferroni", n = length(TABLE$P))
