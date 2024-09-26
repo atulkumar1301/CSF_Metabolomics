@@ -37,7 +37,7 @@ for (i in colnames (df)) {
   TABLE_Ab[j,8] <- confint(model) [2,2]
   TABLE_Ab[j,9] <- AIC (model)
   TABLE_Ab[j,10] <- BIC (model)
-  TABLE[j,11] <- summary(model)$coefficients[2, "t value"]
+  TABLE_Ab[j,11] <- summary(model)$coefficients[2, "t value"]
   
   TABLE_Tau[j, 1] <- i
   TABLE_Tau[j,2] <- summary(model)$coefficients[3, "Estimate"]
@@ -49,7 +49,7 @@ for (i in colnames (df)) {
   TABLE_Tau[j,8] <- confint(model) [2,2]
   TABLE_Tau[j,9] <- AIC (model)
   TABLE_Tau[j,10] <- BIC (model)
-  TABLE[j,11] <- summary(model)$coefficients[3, "t value"]
+  TABLE_Tau[j,11] <- summary(model)$coefficients[3, "t value"]
   
   TABLE_Asyn[j, 1] <- i
   TABLE_Asyn[j,2] <- summary(model)$coefficients[4, "Estimate"]
@@ -61,7 +61,7 @@ for (i in colnames (df)) {
   TABLE_Asyn[j,8] <- confint(model) [2,2]
   TABLE_Asyn[j,9] <- AIC (model)
   TABLE_Asyn[j,10] <- BIC (model)
-  TABLE[j,11] <- summary(model)$coefficients[4, "t value"]
+  TABLE_Asyn[j,11] <- summary(model)$coefficients[4, "t value"]
   
   TABLE_WMH[j, 1] <- i
   TABLE_WMH[j,2] <- summary(model)$coefficients[5, "Estimate"]
@@ -73,7 +73,7 @@ for (i in colnames (df)) {
   TABLE_WMH[j,8] <- confint(model) [2,2]
   TABLE_WMH[j,9] <- AIC (model)
   TABLE_WMH[j,10] <- BIC (model)
-  TABLE[j,11] <- summary(model)$coefficients[5, "t value"]
+  TABLE_Asyn[j,11] <- summary(model)$coefficients[5, "t value"]
   j <- j + 1
 }
 TABLE_Ab$P_Bonferroni <- p.adjust(TABLE_Ab$P, method = "bonferroni", n = length(TABLE_Ab$P))
