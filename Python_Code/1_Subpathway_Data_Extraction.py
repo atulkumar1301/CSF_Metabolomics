@@ -9,6 +9,6 @@ for subpath in subpath_name:
             if (str(line_list [0]) == str(subpath)):
                 l.append (str (line_list [2]))
     print (l)
-    df = pd.read_csv ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/A_Beta/5_Data_Full_Imputed_Analysis_A_beta.txt", delimiter="\t")
+    df = pd.read_csv ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/Metabolites/Full_Data_Metabolites.txt", delimiter="\t")
     df_2 = df[l]
     df_2.to_csv ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/Sub-Pathway/Data_Sub_Pathway/" + str (subpath) + ".txt", sep="\t", index=False)
