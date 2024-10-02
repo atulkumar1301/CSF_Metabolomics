@@ -12,8 +12,8 @@ df_2 <- df [,1:28]
 j <- 1
 for (i in colnames (df)) {
   if (i %in% colnames (df_2)) next
-  modeldata <- glm (N_P ~ 1, family=gaussian, data = df)
   N_P <- df[[i]]
+  modeldata <- glm (N_P ~ 1, family=gaussian, data = df)
   model <- glm (N_P ~ Abnormal_CSF_Ab42_Ab40_Ratio + Age + Gender + Recruitment_Bias + mean_standardized_metabolomic_level, data = df, family=gaussian)
   lreg.or <-exp(cbind(OR = coef(model)))
   TABLE[j, 1] <- i
