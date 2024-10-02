@@ -1,9 +1,9 @@
 # Library
 library(fmsb)
 library(data.table)
-df <- fread ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/Metabolites/Radar_Plot_Data_T_Value.txt")
+df <- fread ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/Sub-Pathway/Radar_Plot_Data_Subpathway_T_Value.txt")
 df <- data.frame(df, row.names = 1)
-create_beautiful_radarchart <- function(data, color = c("#E7B800", "#FC4E07"), 
+create_beautiful_radarchart <- function(data, color = c("#009E73", "#E7B800", "#FC4E07", "#56B4E9"), 
                                         vlabels = colnames(df), vlcex = 0.7,
                                         caxislabels = NULL, title = NULL, ...){
   radarchart(
@@ -23,6 +23,7 @@ create_beautiful_radarchart(df, caxislabels = c(0, 5, 10, 15, 20))
 
 legend(
   x = "bottom", legend = rownames(df[-c(1,2),]), horiz = TRUE,
-  bty = "n", pch = 20 , col = c("#E7B800", "#FC4E07"),
+  bty = "n", pch = 20 , col = c("#009E73", "#E7B800", "#FC4E07", "#56B4E9"),
   text.col = "black", cex = 1, pt.cex = 1.5
 )
+
