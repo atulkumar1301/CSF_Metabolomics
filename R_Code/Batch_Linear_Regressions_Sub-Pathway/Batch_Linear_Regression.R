@@ -73,7 +73,7 @@ for (i in colnames (df)) {
   TABLE_WMH[j,8] <- confint(model) [2,2]
   TABLE_WMH[j,9] <- AIC (model)
   TABLE_WMH[j,10] <- BIC (model)
-  TABLE_Asyn[j,11] <- summary(model)$coefficients[5, "t value"]
+  TABLE_WML[j,11] <- summary(model)$coefficients[5, "t value"]
   j <- j + 1
 }
 TABLE_Ab$P_Bonferroni <- p.adjust(TABLE_Ab$P, method = "bonferroni", n = length(TABLE_Ab$P))
