@@ -3,10 +3,13 @@ library (reshape2)
 library(data.table)
 library(ggpubr)
 #Including APOE Region
-df <- fread ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/Sub-Pathway/Heat_Map_Data.txt")
+df_1 <- fread ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/Sub-Pathway/Heat_Map_Data.txt", header = TRUE, stringsAsFactors = FALSE)
+df_1 <- scale(t(df_1[,-1]))
+ord <- hclust( dist(df_1, method = "euclidean"), method = "ward.D" )$order
+df <- as.data.frame( df_1 )
 melted_df <- melt (df)
 ggheatmap <- ggplot (data = melted_df, aes (x = Metabolite, y = variable, fill = value)) + 
-          geom_tile (color = "white") +
+  geom_tile (color = "white") +
   scale_fill_gradient2(low = "blue", high = "red", midpoint = 0.044276440, limit = c(-5, 6), space = "Lab", name="Mediation Percentage")+
   xlab("Metabolites") +
   ylab("Pathologies") +
@@ -26,3 +29,5 @@ ggheatmap <- ggheatmap +
     axis.ticks = element_blank())
 
 ggheatmap
+
+
