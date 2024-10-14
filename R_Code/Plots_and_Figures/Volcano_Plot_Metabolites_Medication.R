@@ -119,15 +119,15 @@ annotate_figure(plot, top = text_grob(expression("Individual effects of all path
 
 ####Abeta adjusted for other pathologies
 
-df_1 <- fread ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/Metabolites/All_Combined/7_Full_Result_Data_Analysis_Ab.txt")
+df_1 <- fread ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/Metabolites/All_Combined/Medication/7_Full_Result_Data_Analysis_Ab_Medication.txt")
 p_1 <- ggplot (data = df_1, aes (x = Effect, y = -log10(P), col = Regulation, label = Label))+
   geom_point ()+ geom_text_repel(max.overlaps = Inf, show.legend  = F)
 p_1 <- p_1 + geom_hline (aes(yintercept=-log10(0.05), linetype = "p-value 0.05", col="black")) +
-  geom_hline (aes (yintercept=-log10(0.00319148936), linetype = "FDR p-value 0.05", col="#D55E00")) +
+  geom_hline (aes (yintercept=-log10(0.00385638297), linetype = "FDR p-value 0.05", col="#D55E00")) +
   scale_linetype_manual(name = "p-value cut off", values = c(2, 2), 
-                        guide = guide_legend(override.aes = list(color = c("black", "#D55E00")))) ##0.00039893617 (with no Dynamics)
+                        guide = guide_legend(override.aes = list(color = c("black", "#D55E00"))))
 p_1 <- p_1 + scale_color_manual(values=cbbPalette, limits = force) + theme_light()
-p_1 <- p_1 + scale_x_continuous(breaks = round(seq(-0.3, 0.3, by = 0.1),1))
+p_1 <- p_1 + scale_x_continuous(breaks = round(seq(-0.9, 0.31, by = 0.3),1))
 p_1 <- p_1 + scale_y_continuous(breaks = round (seq (0, 8, by = 1), 1))
 p_1 <- p_1 + xlab ("Effect") + labs (color = "Regulation") + ylab (expression (-log[10]~(P)))
 p_1 <- p_1 +
@@ -145,7 +145,7 @@ p_1
 
 ###TauPET adjusted for other pathologies
 
-df_3 <- fread ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/Metabolites/All_Combined/7_Full_Result_Data_Analysis_Taupet.txt")
+df_3 <- fread ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/Metabolites/All_Combined/Medication/7_Full_Result_Data_Analysis_Taupet_Medication.txt")
 p_3 <- ggplot (data = df_3, aes (x = Effect, y = -log10(P), col = Regulation, label = Label))+
   geom_point ()+ geom_text_repel(max.overlaps = Inf, show.legend  = F)
 p_3 <- p_3 + geom_hline (aes(yintercept=-log10(0.05), linetype = "p-value 0.05", col="black")) +
@@ -153,7 +153,7 @@ p_3 <- p_3 + geom_hline (aes(yintercept=-log10(0.05), linetype = "p-value 0.05",
   scale_linetype_manual(name = "p-value cut off", values = c(2, 2), 
                         guide = guide_legend(override.aes = list(color = c("black", "#D55E00")))) ##0.00053191489 (with No Dynamics)
 p_3 <- p_3 + scale_color_manual(values=cbbPalette, limits = force) + theme_light()
-p_3 <- p_3 + scale_x_continuous(breaks = round(seq(-0.6, 0.4, by = 0.2),1))
+p_3 <- p_3 + scale_x_continuous(breaks = round(seq(-0.3, 0.4, by = 0.2),1))
 p_3 <- p_3 + scale_y_continuous(breaks = round (seq (0, 8, by = 1), 1))
 p_3 <- p_3 + xlab ("Effect") + labs (color = "Regulation") + ylab (expression (-log[10]~(p)))
 p_3 <- p_3 +
@@ -171,7 +171,7 @@ p_3
 
 ##Asyn adjusted for other pathologies
 
-df_5 <- fread ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/Metabolites/All_Combined/7_Full_Result_Data_Analysis_Asyn.txt")
+df_5 <- fread ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/Metabolites/All_Combined/Medication/7_Full_Result_Data_Analysis_Asyn_Medication.txt")
 p_5 <- ggplot (data = df_5, aes (x = Effect, y = -log10(P), col = Regulation, label = Label))+
   geom_point ()+ geom_text_repel(max.overlaps = Inf, show.legend  = F)
 p_5 <- p_5 + geom_hline (aes(yintercept=-log10(0.05), linetype = "p-value 0.05", col="black")) +
@@ -197,7 +197,7 @@ p_5
 
 ###WML adjusted for other pathologies
 
-df_7 <- fread ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/Metabolites/All_Combined/7_Full_Result_Data_Analysis_WML.txt")
+df_7 <- fread ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/Metabolites/All_Combined/Medication/7_Full_Result_Data_Analysis_WML_Medication.txt")
 p_7 <- ggplot (data = df_7, aes (x = Effect, y = -log10(P), col = Regulation, label = Label))+
   geom_point ()+ geom_text_repel(max.overlaps = Inf, show.legend  = F)
 p_7 <- p_7 + geom_hline (aes(yintercept=-log10(0.05), linetype = "p-value 0.05", col="black")) +
@@ -205,7 +205,7 @@ p_7 <- p_7 + geom_hline (aes(yintercept=-log10(0.05), linetype = "p-value 0.05",
   scale_linetype_manual(name = "p-value cut off", values = c(2, 2), 
                         guide = guide_legend(override.aes = list(color = c("black", "#D55E00")))) ##0.0097074468 (with No Dynamics)
 p_7 <- p_7 + scale_color_manual(values=cbbPalette, limits = force) + theme_light()
-p_7 <- p_7 + scale_x_continuous(breaks = round(seq(-1, 1, by = 0.3), 1))
+p_7 <- p_7 + scale_x_continuous(breaks = round(seq(-1, 0.8, by = 0.3), 1))
 p_7 <- p_7 + scale_y_continuous(breaks = round (seq (0, 15, by = 1), 1))
 p_7 <- p_7 + xlab ("Effect") + labs (color = "Regulation") + ylab (expression (-log[10]~(p)))
 p_7 <- p_7 +
@@ -222,4 +222,4 @@ p_7
 
 
 plot <- ggarrange(p_1, p_3, p_5, p_7, common.legend = TRUE, legend = "bottom")
-annotate_figure(plot, top = text_grob(expression("Effects of all neurodegenerative disease pathology on CSF Metabolites when adjusted for other pathologies"), color = "#999999", face = "bold", size = 20, family = "serif"))
+annotate_figure(plot, top = text_grob(expression("Effects of all neurodegenerative disease pathology on CSF Metabolites when adjusted for other pathologies and Medciation"), color = "#999999", face = "bold", size = 20, family = "serif"))
