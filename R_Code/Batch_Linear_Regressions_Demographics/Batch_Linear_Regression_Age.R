@@ -4,17 +4,16 @@ library(ROCR)
 library(pROC)
 library(RNOmni)
 library(scales)
-args <- commandArgs(trailingOnly = TRUE)
-TABLE<-as.data.frame(matrix(ncol=10, nrow=369))
-names(TABLE)<-c("Biomarker", "Effect", "OR","SE", "P", "R2", "L95", "U95", "AIC", "BIC")
-df <- fread (file = "/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_1/5_Data_Analysis_1_Full_Imputed.txt")
-df_2 <- df [,1:29]
+TABLE<-as.data.frame(matrix(ncol=11, nrow=376))
+names(TABLE)<-c("Biomarker", "Effect", "OR","SE", "P", "R2", "L95", "U95", "AIC", "BIC", "t Value")
+df <- fread (file = "/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/CUI/CUI_Data.txt")
+df_2 <- df [,1:30]
 j <- 1
 for (i in colnames (df)) {
   if (i %in% colnames (df_2)) next
-  modeldata <- glm (Age ~ 1, family=gaussian, data = df)
   N_P <- df[[i]]
-  model <- glm (Age ~ N_P + Gender, data = df, family=gaussian)
+  modeldata <- glm (N_P ~ 1, family=gaussian, data = df)
+  model <- glm (N_P ~ Age + mean_standardized_metabolomic_level, data = df, family=gaussian)
   lreg.or <-exp(cbind(OR = coef(model)))
   TABLE[j, 1] <- i
   TABLE[j,2] <- summary(model)$coefficients[2, "Estimate"]
@@ -28,6 +27,9 @@ for (i in colnames (df)) {
   TABLE[j,8] <- confint(model) [2,2]
   TABLE[j,9] <- AIC (model)
   TABLE[j,10] <- BIC (model)
+  TABLE[j,11] <- summary(model)$coefficients[2, "t value"]
   j <- j + 1
 }
-write.table (TABLE, (file = paste0 ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_1/6_Result_Data_Analysis_Age_Raw_Adjusted.txt")), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
+TABLE$P_Bonferroni <- p.adjust(TABLE$P, method = "bonferroni", n = length(TABLE$P))
+TABLE$P_FDR <- p.adjust(TABLE$P, method = "fdr", n = length(TABLE$P))
+write.table (TABLE, (file = paste0 ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/CUI/6_Result_Data_Analysis_Age.txt")), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
