@@ -65,7 +65,7 @@ p_2
 
 ####CU_CI
 
-df_4 <- fread ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/Demographics/Full/7_Full_Result_Data_Analysis_A_Syn.txt")
+df_4 <- fread ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/Demographics/Full/7_Full_Result_Data_Analysis_CU_CI_Full.txt")
 p_4 <- ggplot (data = df_4, aes (x = Effect, y = -log10(P), col = Regulation, label = Label))+
   geom_point ()+ geom_text_repel(max.overlaps = Inf, show.legend  = F)
 p_4 <- p_4 + geom_hline (aes(yintercept=-log10(0.05), linetype = "p-value 0.05", col="black")) +
@@ -91,16 +91,16 @@ p_4
 
 ####Age adjusted for Gender and CU/CI
 
-df_1 <- fread ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/Metabolites/All_Combined/7_Full_Result_Data_Analysis_Ab.txt")
+df_1 <- fread ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/Demographics/All_Combined/7_Full_Result_Data_Analysis_Age_All.txt")
 p_1 <- ggplot (data = df_1, aes (x = Effect, y = -log10(P), col = Regulation, label = Label))+
   geom_point ()+ geom_text_repel(max.overlaps = Inf, show.legend  = F)
 p_1 <- p_1 + geom_hline (aes(yintercept=-log10(0.05), linetype = "p-value 0.05", col="black")) +
-  geom_hline (aes (yintercept=-log10(0.00319148936), linetype = "FDR p-value 0.05", col="#D55E00")) +
+  geom_hline (aes (yintercept=-log10(0.02180851063), linetype = "FDR p-value 0.05", col="#D55E00")) +
   scale_linetype_manual(name = "p-value cut off", values = c(2, 2), 
                         guide = guide_legend(override.aes = list(color = c("black", "#D55E00")))) ##0.00039893617 (with no Dynamics)
 p_1 <- p_1 + scale_color_manual(values=cbbPalette, limits = force) + theme_light()
-p_1 <- p_1 + scale_x_continuous(breaks = round(seq(-0.3, 0.3, by = 0.1),1))
-p_1 <- p_1 + scale_y_continuous(breaks = round (seq (0, 8, by = 1), 1))
+p_1 <- p_1 + scale_x_continuous(breaks = round(seq(-0.08, 0.07, by = 0.01),1))
+p_1 <- p_1 + scale_y_continuous(breaks = round (seq (0, 24, by = 2), 1))
 p_1 <- p_1 + xlab ("Effect") + labs (color = "Regulation") + ylab (expression (-log[10]~(P)))
 p_1 <- p_1 +
   theme(legend.position="left",
@@ -111,22 +111,22 @@ p_1 <- p_1 +
         axis.text.y = element_text(family = "serif", size=12),
         legend.title = element_text(family = "serif", size=16),
         legend.text = element_text(family = "serif", size=16),
-        panel.background = element_blank()) + labs(title=expression("a) Age adjusted for Sex and CU/CI status"))
+        panel.background = element_blank()) + labs(title=expression("d) Age adjusted for Sex and CU/CI status"))
 p_1
 
 
 ###Gender adjusted for Age and CU/CI
 
-df_3 <- fread ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/Metabolites/All_Combined/7_Full_Result_Data_Analysis_Taupet.txt")
+df_3 <- fread ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/Demographics/All_Combined/7_Full_Result_Data_Analysis_Gender_All.txt")
 p_3 <- ggplot (data = df_3, aes (x = Effect, y = -log10(P), col = Regulation, label = Label))+
   geom_point ()+ geom_text_repel(max.overlaps = Inf, show.legend  = F)
 p_3 <- p_3 + geom_hline (aes(yintercept=-log10(0.05), linetype = "p-value 0.05", col="black")) +
-  geom_hline (aes (yintercept=-log10(0.00026595744), linetype = "FDR p-value 0.05", col="#D55E00")) +
+  geom_hline (aes (yintercept=-log10(0.0222074468), linetype = "FDR p-value 0.05", col="#D55E00")) +
   scale_linetype_manual(name = "p-value cut off", values = c(2, 2), 
                         guide = guide_legend(override.aes = list(color = c("black", "#D55E00")))) ##0.00053191489 (with No Dynamics)
 p_3 <- p_3 + scale_color_manual(values=cbbPalette, limits = force) + theme_light()
-p_3 <- p_3 + scale_x_continuous(breaks = round(seq(-0.6, 0.4, by = 0.2),1))
-p_3 <- p_3 + scale_y_continuous(breaks = round (seq (0, 8, by = 1), 1))
+p_3 <- p_3 + scale_x_continuous(breaks = round(seq(-0.7, 0.6, by = 0.2),1))
+p_3 <- p_3 + scale_y_continuous(breaks = round (seq (0, 58, by = 4), 1))
 p_3 <- p_3 + xlab ("Effect") + labs (color = "Regulation") + ylab (expression (-log[10]~(p)))
 p_3 <- p_3 +
   theme(legend.position="left",
@@ -137,17 +137,17 @@ p_3 <- p_3 +
         axis.text.y = element_text(family = "serif", size=12),
         legend.title = element_text(family = "serif", size=16),
         legend.text = element_text(family = "serif", size=16),
-        panel.background = element_blank()) + labs(title=expression("b) Sex adjusted for Age and CU/CI status"))
+        panel.background = element_blank()) + labs(title=expression("e) Sex adjusted for Age and CU/CI status"))
 p_3
 
 
 ##CU/CI adjusted for Gender and Age
 
-df_5 <- fread ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/Metabolites/All_Combined/7_Full_Result_Data_Analysis_Asyn.txt")
+df_5 <- fread ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/Demographics/All_Combined/7_Full_Result_Data_Analysis_CU_CI_All.txt")
 p_5 <- ggplot (data = df_5, aes (x = Effect, y = -log10(P), col = Regulation, label = Label))+
   geom_point ()+ geom_text_repel(max.overlaps = Inf, show.legend  = F)
 p_5 <- p_5 + geom_hline (aes(yintercept=-log10(0.05), linetype = "p-value 0.05", col="black")) +
-  geom_hline (aes (yintercept=-log10(0.00146276595), linetype = "FDR p-value 0.05", col="#D55E00")) +
+  geom_hline (aes (yintercept=-log10(0.00851063829), linetype = "FDR p-value 0.05", col="#D55E00")) +
   scale_linetype_manual(name = "p-value cut off", values = c(2, 2), 
                         guide = guide_legend(override.aes = list(color = c("black", "#D55E00")))) ##0.01316489361 (with No Dynamics)
 p_5 <- p_5 + scale_color_manual(values=cbbPalette, limits = force) + theme_light()
@@ -163,7 +163,7 @@ p_5 <- p_5 +
         axis.text.y = element_text(family = "serif", size=12),
         legend.title = element_text(family = "serif", size=16),
         legend.text = element_text(family = "serif", size=16),
-        panel.background = element_blank()) + labs(title=expression("c) CU/CI status adjusted for Age and Sex"))
+        panel.background = element_blank()) + labs(title=expression("f) CU/CI status adjusted for Age and Sex"))
 p_5
 
 
