@@ -27,7 +27,7 @@ p <- p + scale_y_continuous(breaks = round (seq (0, 30, by = 2), 1))
 p <- p + xlab ("Effect") + labs (color = "Regulation") + ylab (expression (-log[10]~(P)))
 p <- p +
   theme(legend.position="left",
-        plot.title = element_text(family = "serif", size=18, face = "bold", hjust = 0.5),
+        plot.title = element_text(family = "serif", size=14, face = "bold", hjust = 0.5),
         axis.title.x = element_text(family = "serif", size=16),
         axis.title.y = element_text(family = "serif", size=16),
         axis.text.x = element_text(family = "serif", size=12),
@@ -53,7 +53,7 @@ p_2 <- p_2 + scale_y_continuous(breaks = round (seq (0, 55, by = 4), 1))
 p_2 <- p_2 + xlab ("Effect") + labs (color = "Regulation") + ylab (expression (-log[10]~(p)))
 p_2 <- p_2 +
   theme(legend.position="left",
-        plot.title = element_text(family = "serif", size=18, face = "bold", hjust = 0.5),
+        plot.title = element_text(family = "serif", size=14, face = "bold", hjust = 0.5),
         axis.title.x = element_text(family = "serif", size=16),
         axis.title.y = element_text(family = "serif", size=16),
         axis.text.x = element_text(family = "serif", size=12),
@@ -78,7 +78,7 @@ p_4 <- p_4 + scale_y_continuous(breaks = round (seq (0, 15, by = 2), 1))
 p_4 <- p_4 + xlab ("Effect") + labs (color = "Regulation") + ylab (expression (-log[10]~(p)))
 p_4 <- p_4 +
   theme(legend.position="left",
-        plot.title = element_text(family = "serif", size=18, face = "bold", hjust = 0.5),
+        plot.title = element_text(family = "serif", size=14, face = "bold", hjust = 0.5),
         axis.title.x = element_text(family = "serif", size=16),
         axis.title.y = element_text(family = "serif", size=16),
         axis.text.x = element_text(family = "serif", size=12),
@@ -104,7 +104,7 @@ p_1 <- p_1 + scale_y_continuous(breaks = round (seq (0, 24, by = 2), 1))
 p_1 <- p_1 + xlab ("Effect") + labs (color = "Regulation") + ylab (expression (-log[10]~(P)))
 p_1 <- p_1 +
   theme(legend.position="left",
-        plot.title = element_text(family = "serif", size=18, face = "bold", hjust = 0.5),
+        plot.title = element_text(family = "serif", size=14, face = "bold", hjust = 0.5),
         axis.title.x = element_text(family = "serif", size=16),
         axis.title.y = element_text(family = "serif", size=16),
         axis.text.x = element_text(family = "serif", size=12),
@@ -130,7 +130,7 @@ p_3 <- p_3 + scale_y_continuous(breaks = round (seq (0, 58, by = 4), 1))
 p_3 <- p_3 + xlab ("Effect") + labs (color = "Regulation") + ylab (expression (-log[10]~(p)))
 p_3 <- p_3 +
   theme(legend.position="left",
-        plot.title = element_text(family = "serif", size=18, face = "bold", hjust = 0.5),
+        plot.title = element_text(family = "serif", size=14, face = "bold", hjust = 0.5),
         axis.title.x = element_text(family = "serif", size=16),
         axis.title.y = element_text(family = "serif", size=16),
         axis.text.x = element_text(family = "serif", size=12),
@@ -151,12 +151,12 @@ p_5 <- p_5 + geom_hline (aes(yintercept=-log10(0.05), linetype = "p-value 0.05",
   scale_linetype_manual(name = "p-value cut off", values = c(2, 2), 
                         guide = guide_legend(override.aes = list(color = c("black", "#D55E00")))) ##0.01316489361 (with No Dynamics)
 p_5 <- p_5 + scale_color_manual(values=cbbPalette, limits = force) + theme_light()
-p_5 <- p_5 + scale_x_continuous(breaks = round(seq(-0.3, 0.7, by = 0.3), 1))
+p_5 <- p_5 + scale_x_continuous(breaks = round(seq(-0.3, 0.4, by = 0.3), 1))
 p_5 <- p_5 + scale_y_continuous(breaks = round (seq (0, 17, by = 1), 1))
 p_5 <- p_5 + xlab ("Effect") + labs (color = "Regulation") + ylab (expression (-log[10]~(p)))
 p_5 <- p_5 +
   theme(legend.position="left",
-        plot.title = element_text(family = "serif", size=18, face = "bold", hjust = 0.5),
+        plot.title = element_text(family = "serif", size=14, face = "bold", hjust = 0.5),
         axis.title.x = element_text(family = "serif", size=16),
         axis.title.y = element_text(family = "serif", size=16),
         axis.text.x = element_text(family = "serif", size=12),
