@@ -1,0 +1,47 @@
+library(data.table)
+df <- fread ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/Metabolites/Full_Data_Metabolites.txt")
+table (df$diagnosis_baseline_variable)
+
+df_CUI <- df [df$diagnosis_baseline_variable == "Normal" | df$diagnosis_baseline_variable == "SCD"]
+mean (df_CUI$Age)
+sd(df_CUI$Age)
+table (df_CUI$Gender)
+mean (df_CUI$Education, na.rm = TRUE)
+sd (df_CUI$Education, na.rm = TRUE)
+table (df_CUI$E2)
+table (df_CUI$E4)
+table (df_CUI$Abnormal_CSF_Ab42_Ab40_Ratio)
+table (df_CUI$SAA_Status)
+
+df_MCI <- df [df$diagnosis_baseline_variable == "MCI"]
+mean (df_MCI$Age)
+sd(df_MCI$Age)
+table (df_MCI$Gender)
+mean (df_MCI$Education, na.rm = TRUE)
+sd (df_MCI$Education, na.rm = TRUE)
+table (df_MCI$E2)
+table (df_MCI$E4)
+table (df_MCI$Abnormal_CSF_Ab42_Ab40_Ratio)
+table (df_MCI$SAA_Status)
+
+df_AD <- df [df$diagnosis_baseline_variable == "AD"]
+mean (df_AD$Age)
+sd(df_AD$Age)
+table (df_AD$Gender)
+mean (df_AD$Education, na.rm = TRUE)
+sd (df_AD$Education, na.rm = TRUE)
+table (df_AD$E2)
+table (df_AD$E4)
+table (df_AD$Abnormal_CSF_Ab42_Ab40_Ratio)
+table (df_AD$SAA_Status)
+
+df_Non_AD <- df [df$diagnosis_baseline_variable == "PD" | df$diagnosis_baseline_variable == "DLB"]
+mean (df_Non_AD$Age)
+sd(df_Non_AD$Age)
+table (df_Non_AD$Gender)
+mean (df_Non_AD$Education, na.rm = TRUE)
+sd (df_Non_AD$Education, na.rm = TRUE)
+table (df_Non_AD$E2)
+table (df_Non_AD$E4)
+table (df_Non_AD$Abnormal_CSF_Ab42_Ab40_Ratio)
+table (df_Non_AD$SAA_Status)
