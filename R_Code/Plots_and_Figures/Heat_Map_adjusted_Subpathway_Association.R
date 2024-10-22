@@ -4,10 +4,12 @@ library(data.table)
 library(ggpubr)
 #Including APOE Region
 df <- fread ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/Sub-Pathway/Heat_Map_Data_Adjusted.txt")
+ord <- hclust( dist(df_1, method = "euclidean"), method = "ward.D" )$order
 melted_df <- melt (df)
 ggheatmap <- ggplot (data = melted_df, aes (x = Metabolite, y = variable, fill = value)) + 
-          geom_tile (color = "white") +
-  scale_fill_gradient2(low = "blue", high = "red", midpoint = 0.110758840, limit = c(-5, 6), space = "Lab", name="Mediation Percentage")+
+  geom_tile (color = "white") +
+  scale_x_discrete(limits=melted_df$Metabolite[ord]) +
+  scale_fill_gradient2(low = "blue", high = "red", midpoint = 0.110758840, limit = c(-5, 6), space = "Lab", name="Effect Size")+
   xlab("Metabolites") +
   ylab("Pathologies") +
   ggtitle ("Metabolite association with Different Pathologies adjusted for other co-pathologies")
