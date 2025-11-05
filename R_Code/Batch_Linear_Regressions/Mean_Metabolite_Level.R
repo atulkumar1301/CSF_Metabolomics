@@ -6,9 +6,9 @@ library(ROCR)
 library(pROC)
 library(RNOmni)
 args <- commandArgs(trailingOnly = TRUE)
-TABLE<-as.data.frame(matrix(ncol=11, nrow=8))
+TABLE<-as.data.frame(matrix(ncol=11, nrow=14))
 names(TABLE)<-c("Model", "Effect", "OR","SE", "P", "R2", "L95", "U95", "AIC", "BIC", "t Value")
-df <- fread (file = "/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/Metabolites/Full_Data_Metabolites.txt")
+df <- fread (file = "~/Library/CloudStorage/OneDrive-UniversityofEasternFinland/Work/Projects/CSF_Metabolomics/Analyses_2/Metabolites/Full_Data_Metabolites.txt")
 
 j = 1
 modeldata_Ab <- glm (mean_standardized_metabolomic_level ~ 1, family=gaussian, data = df)
@@ -171,4 +171,124 @@ TABLE[j, 9] <- AIC (model_WML_Ad)
 TABLE[j, 10] <- BIC (model_WML_Ad)
 TABLE[j, 11] <- summary(model_WML_Ad)$coefficients[2, "t value"]
 
-write.table (TABLE, (file = paste0 ("/Volumes/ATUL_6TB/Work/Projects/CSF_Metabolomics/Analyses_2/Metabolites/Mean_Metabolite_Level_Pathology/Result_Mean_Metabolite_Level_Pathology.txt")), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
+j = 9
+modeldata_Age <- glm (mean_standardized_metabolomic_level ~ 1, family=gaussian, data = df)
+model_Age <- glm (mean_standardized_metabolomic_level ~ Age + Gender + Recruitment_Bias, data = df, family=gaussian)
+lreg.or <-exp(cbind(OR = coef(model_Age)))
+TABLE[j, 1] <- "Age"
+TABLE[j, 2] <- summary(model_Age)$coefficients[2, "Estimate"]
+TABLE[j, 3] <- lreg.or[2]
+TABLE[j, 4] <- summary(model_Age)$coefficients[2, "Std. Error"]
+TABLE[j, 5] <- summary(model_Age)$coefficients[2, "Pr(>|t|)"]
+l0 <- deviance(modeldata_Age);df0 <- df.residual(modeldata_Age)
+l1 <- deviance(model_Age);df1 <- df.residual(model_Age)
+TABLE[j, 6] <- (1 - exp((l1 - l0)/nrow(df)))/(1 - exp( - l0/nrow(df)))        #Nagelkerke
+obs = model_Age$y
+pred = model_Age$fitted.values
+TABLE[j, 7] <- confint(model_Age) [2,1] 
+TABLE[j, 8] <- confint(model_Age) [2,2]
+TABLE[j, 9] <- AIC (model_Age)
+TABLE[j, 10] <- BIC (model_Age)
+TABLE[j, 11] <- summary(model_Age)$coefficients[2, "t value"]
+
+j = 10
+modeldata_Age_Ad <- glm (mean_standardized_metabolomic_level ~ 1, family=gaussian, data = df)
+model_Age_Ad <- glm (mean_standardized_metabolomic_level ~ Age + Gender + Recruitment_Bias + Abnormal_CSF_Ab42_Ab40_Ratio + tnic_cho_com_I_IV + SAA_Status, samseg_wmhs_WMH_total_mm3, data = df, family=gaussian)
+lreg.or <-exp(cbind(OR = coef(model_Age_Ad)))
+TABLE[j, 1] <- "Age Adjusted"
+TABLE[j, 2] <- summary(model_Age_Ad)$coefficients[2, "Estimate"]
+TABLE[j, 3] <- lreg.or[2]
+TABLE[j, 4] <- summary(model_Age_Ad)$coefficients[2, "Std. Error"]
+TABLE[j, 5] <- summary(model_Age_Ad)$coefficients[2, "Pr(>|t|)"]
+l0 <- deviance(modeldata_Age_Ad);df0 <- df.residual(modeldata_Age_Ad)
+l1 <- deviance(model_Age_Ad);df1 <- df.residual(model_Age_Ad)
+TABLE[j, 6] <- (1 - exp((l1 - l0)/nrow(df)))/(1 - exp( - l0/nrow(df)))        #Nagelkerke
+obs = model_Age_Ad$y
+pred = model_Age_Ad$fitted.values
+TABLE[j, 7] <- confint(model_Age_Ad) [2,1] 
+TABLE[j, 8] <- confint(model_Age_Ad) [2,2]
+TABLE[j, 9] <- AIC (model_Age_Ad)
+TABLE[j, 10] <- BIC (model_Age_Ad)
+TABLE[j, 11] <- summary(model_Age_Ad)$coefficients[2, "t value"]
+
+j = 11
+modeldata_Gender <- glm (mean_standardized_metabolomic_level ~ 1, family=gaussian, data = df)
+model_Gender <- glm (mean_standardized_metabolomic_level ~ Gender + Age + Recruitment_Bias, data = df, family=gaussian)
+lreg.or <-exp(cbind(OR = coef(model_Gender)))
+TABLE[j, 1] <- "Gender"
+TABLE[j, 2] <- summary(model_Gender)$coefficients[2, "Estimate"]
+TABLE[j, 3] <- lreg.or[2]
+TABLE[j, 4] <- summary(model_Gender)$coefficients[2, "Std. Error"]
+TABLE[j, 5] <- summary(model_Gender)$coefficients[2, "Pr(>|t|)"]
+l0 <- deviance(modeldata_Gender);df0 <- df.residual(modeldata_Gender)
+l1 <- deviance(model_Gender);df1 <- df.residual(model_Gender)
+TABLE[j, 6] <- (1 - exp((l1 - l0)/nrow(df)))/(1 - exp( - l0/nrow(df)))        #Nagelkerke
+obs = model_Gender$y
+pred = model_Gender$fitted.values
+TABLE[j, 7] <- confint(model_Gender) [2,1] 
+TABLE[j, 8] <- confint(model_Gender) [2,2]
+TABLE[j, 9] <- AIC (model_Gender)
+TABLE[j, 10] <- BIC (model_Gender)
+TABLE[j, 11] <- summary(model_Gender)$coefficients[2, "t value"]
+
+j = 12
+modeldata_Gender_Ad <- glm (mean_standardized_metabolomic_level ~ 1, family=gaussian, data = df)
+model_Gender_Ad <- glm (mean_standardized_metabolomic_level ~ Gender + Age + Recruitment_Bias + Abnormal_CSF_Ab42_Ab40_Ratio + tnic_cho_com_I_IV + SAA_Status, samseg_wmhs_WMH_total_mm3, data = df, family=gaussian)
+lreg.or <-exp(cbind(OR = coef(model_Gender_Ad)))
+TABLE[j, 1] <- "Gender Adjusted"
+TABLE[j, 2] <- summary(model_Gender_Ad)$coefficients[2, "Estimate"]
+TABLE[j, 3] <- lreg.or[2]
+TABLE[j, 4] <- summary(model_Gender_Ad)$coefficients[2, "Std. Error"]
+TABLE[j, 5] <- summary(model_Gender_Ad)$coefficients[2, "Pr(>|t|)"]
+l0 <- deviance(modeldata_Gender_Ad);df0 <- df.residual(modeldata_Gender_Ad)
+l1 <- deviance(model_Gender_Ad);df1 <- df.residual(model_Gender_Ad)
+TABLE[j, 6] <- (1 - exp((l1 - l0)/nrow(df)))/(1 - exp( - l0/nrow(df)))        #Nagelkerke
+obs = model_Gender_Ad$y
+pred = model_Gender_Ad$fitted.values
+TABLE[j, 7] <- confint(model_Gender_Ad) [2,1] 
+TABLE[j, 8] <- confint(model_Gender_Ad) [2,2]
+TABLE[j, 9] <- AIC (model_Gender_Ad)
+TABLE[j, 10] <- BIC (model_Gender_Ad)
+TABLE[j, 11] <- summary(model_Gender_Ad)$coefficients[2, "t value"]
+
+j = 13
+modeldata_CU_CI <- glm (mean_standardized_metabolomic_level ~ 1, family=gaussian, data = df)
+model_CU_CI <- glm (mean_standardized_metabolomic_level ~ Recruitment_Bias + Gender + Age, data = df, family=gaussian)
+lreg.or <-exp(cbind(OR = coef(model_CU_CI)))
+TABLE[j, 1] <- "CU_CI"
+TABLE[j, 2] <- summary(model_CU_CI)$coefficients[2, "Estimate"]
+TABLE[j, 3] <- lreg.or[2]
+TABLE[j, 4] <- summary(model_CU_CI)$coefficients[2, "Std. Error"]
+TABLE[j, 5] <- summary(model_CU_CI)$coefficients[2, "Pr(>|t|)"]
+l0 <- deviance(modeldata_CU_CI);df0 <- df.residual(modeldata_CU_CI)
+l1 <- deviance(model_CU_CI);df1 <- df.residual(model_CU_CI)
+TABLE[j, 6] <- (1 - exp((l1 - l0)/nrow(df)))/(1 - exp( - l0/nrow(df)))        #Nagelkerke
+obs = model_CU_CI$y
+pred = model_CU_CI$fitted.values
+TABLE[j, 7] <- confint(model_CU_CI) [2,1] 
+TABLE[j, 8] <- confint(model_CU_CI) [2,2]
+TABLE[j, 9] <- AIC (model_CU_CI)
+TABLE[j, 10] <- BIC (model_CU_CI)
+TABLE[j, 11] <- summary(model_CU_CI)$coefficients[2, "t value"]
+
+j = 14
+modeldata_CU_CI_Ad <- glm (mean_standardized_metabolomic_level ~ 1, family=gaussian, data = df)
+model_CU_CI_Ad <- glm (mean_standardized_metabolomic_level ~ Recruitment_Bias + Gender + Age + Abnormal_CSF_Ab42_Ab40_Ratio + tnic_cho_com_I_IV + SAA_Status, samseg_wmhs_WMH_total_mm3, data = df, family=gaussian)
+lreg.or <-exp(cbind(OR = coef(model_CU_CI_Ad)))
+TABLE[j, 1] <- "CU_CI Adjusted"
+TABLE[j, 2] <- summary(model_CU_CI_Ad)$coefficients[2, "Estimate"]
+TABLE[j, 3] <- lreg.or[2]
+TABLE[j, 4] <- summary(model_CU_CI_Ad)$coefficients[2, "Std. Error"]
+TABLE[j, 5] <- summary(model_CU_CI_Ad)$coefficients[2, "Pr(>|t|)"]
+l0 <- deviance(modeldata_CU_CI_Ad);df0 <- df.residual(modeldata_CU_CI_Ad)
+l1 <- deviance(model_CU_CI_Ad);df1 <- df.residual(model_CU_CI_Ad)
+TABLE[j, 6] <- (1 - exp((l1 - l0)/nrow(df)))/(1 - exp( - l0/nrow(df)))        #Nagelkerke
+obs = model_CU_CI_Ad$y
+pred = model_CU_CI_Ad$fitted.values
+TABLE[j, 7] <- confint(model_CU_CI_Ad) [2,1] 
+TABLE[j, 8] <- confint(model_CU_CI_Ad) [2,2]
+TABLE[j, 9] <- AIC (model_CU_CI_Ad)
+TABLE[j, 10] <- BIC (model_CU_CI_Ad)
+TABLE[j, 11] <- summary(model_CU_CI_Ad)$coefficients[2, "t value"]
+
+write.table (TABLE, (file = paste0 ("~/Library/CloudStorage/OneDrive-UniversityofEasternFinland/Work/Projects/CSF_Metabolomics/Analyses_2/Mean_Metabolite_Level_Pathology/Result_Mean_Metabolite_Level_Pathology.txt")), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
