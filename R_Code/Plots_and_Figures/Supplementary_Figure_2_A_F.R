@@ -1,3 +1,17 @@
+#Volcano plot
+library(ggpubr)
+library(data.table)
+library(ggplot2)
+library(ggrepel)
+library (plotly)
+
+
+# The palette with grey:
+cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+
+# The palette with black:
+cbbPalette <- c("#000000", "#D55E00", "#56B4E9", "#009E73", "#E69F00", "#0072B2", "#F0E442", "#CC79A7")
+
 ####Age Metabolites
 
 df <- fread ("~/Library/CloudStorage/OneDrive-UniversityofEasternFinland/Work/Projects/CSF_Metabolomics/Analyses_2/Demographics/Full/7_Full_Result_Data_Analysis_Age_Full.txt")
