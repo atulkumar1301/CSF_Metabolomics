@@ -66,12 +66,12 @@ for (i in colnames (df)) {
 }
 TABLE_Age$P_Bonferroni <- p.adjust(TABLE_Age$P, method = "bonferroni", n = length(TABLE_Age$P))
 TABLE_Age$P_FDR <- p.adjust(TABLE_Age$P, method = "fdr", n = length(TABLE_Age$P))
-write.table (TABLE_Age, (file = paste0 ("~/Library/CloudStorage/OneDrive-UniversityofEasternFinland/Work/Projects/CSF_Metabolomics/Analyses_2/Sub-Pathway/All_Combined/6_Result_Data_Analysis_Age.txt")), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
+write.table (TABLE_Age, (file = paste0 ("~/Library/CloudStorage/OneDrive-UniversityofEasternFinland/Work/Projects/CSF_Metabolomics/Analyses_2/Sub-Pathway/Demographics/All_Combined/6_Result_Data_Analysis_Age.txt")), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
 
 TABLE_Gender$P_Bonferroni <- p.adjust(TABLE_Gender$P, method = "bonferroni", n = length(TABLE_Gender$P))
 TABLE_Gender$P_FDR <- p.adjust(TABLE_Gender$P, method = "fdr", n = length(TABLE_Gender$P))
-write.table (TABLE_Gender, (file = paste0 ("~/Library/CloudStorage/OneDrive-UniversityofEasternFinland/Work/Projects/CSF_Metabolomics/Analyses_2/Sub-Pathway/6_Result_Data_Analysis_Gender.txt")), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
+write.table (TABLE_Gender, (file = paste0 ("~/Library/CloudStorage/OneDrive-UniversityofEasternFinland/Work/Projects/CSF_Metabolomics/Analyses_2/Sub-Pathway/Demographics/All_Combined/6_Result_Data_Analysis_Gender.txt")), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
 
 TABLE_CU_CI$P_Bonferroni <- p.adjust(TABLE_CU_CI$P, method = "bonferroni", n = length(TABLE_CU_CI$P))
 TABLE_CU_CI$P_FDR <- p.adjust(TABLE_CU_CI$P, method = "fdr", n = length(TABLE_CU_CI$P))
-write.table (TABLE_CU_CI, (file = paste0 ("~/Library/CloudStorage/OneDrive-UniversityofEasternFinland/Work/Projects/CSF_Metabolomics/Analyses_2/Sub-Pathway/All_Combined/6_Result_Data_Analysis_CU_CI.txt")), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
+write.table (TABLE_CU_CI, (file = paste0 ("~/Library/CloudStorage/OneDrive-UniversityofEasternFinland/Work/Projects/CSF_Metabolomics/Analyses_2/Sub-Pathway/Demographics/All_Combined/6_Result_Data_Analysis_CU_CI.txt")), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
