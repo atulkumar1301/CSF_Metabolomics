@@ -5,28 +5,10 @@ library(ggcorrplot)
 library(corrr)
 library(dplyr)
 library(cowplot)
-##########
-df_Metabolites <- fread ("~/Library/CloudStorage/OneDrive-UniversityofEasternFinland/Work/Projects/CSF_Metabolomics/Analyses_2/Metabolites/Full_Data_Metabolites.txt")
-Mat_Meta <- df_Metabolites [,-1:-34]
-Mat_Meta_1 <- as.matrix(Mat_Meta)
-Meta_Mat <- correlate (Mat_Meta_1)
-Meta_Mat <- Meta_Mat [,-1]
-Meta_Mat_p <- ggcorrplot(Meta_Mat, outline.col = "white", lab = FALSE, hc.order = FALSE)
-Meta_Mat_p <- Meta_Mat_p + scale_x_continuous(labels = c ())
-Meta_Mat_p  <- Meta_Mat_p + scale_y_discrete(labels = c ())
-Meta_Mat_p <- Meta_Mat_p + theme(
-  plot.title = element_text(family = "serif", size=18, face = "bold"),
-  #axis.title.x = element_text(family = "serif", size=16),
-  #axis.title.y = element_text(family = "serif", size=16),
-  axis.text.x = element_text(family = "serif", size=14),
-  axis.text.y = element_text(family = "serif", size=14),
-  legend.title = element_text(family = "serif", size=14),
-  legend.text = element_text(family = "serif", size=14),
-  panel.grid.major = element_blank(),
-  panel.border = element_blank(),
-  panel.background = element_blank(),
-  axis.ticks = element_blank()) + labs (title = "A")
+library(magick)
+library(gridExtra)
 
+##############
 Cumulative_Variance <- fread ("~/Library/CloudStorage/OneDrive-UniversityofEasternFinland/Work/Projects/CSF_Metabolomics/Analyses_1/PCA/12_Cumulative_Variance.txt")
 p <- ggplot(Cumulative_Variance, aes(x = PCs, y = Cumulative_Variance)) + geom_line() + geom_point()
 p <- p + theme_bw()
@@ -43,14 +25,21 @@ p <- p +
         axis.text.y = element_text(family = "serif", size=14),
         legend.title = element_text(family = "serif", size=16),
         legend.text = element_text(family = "serif", size=16),
-        panel.background = element_blank()) + labs (title = "B")
+        panel.background = element_blank()) + labs (title = "A")
+
+
+#########
+img <- image_read ("~/OneDrive - University of Eastern Finland/Work/Projects/mQTL_pQTL/Metabolomics/metabolomics.jpg")
+img_plot <- ggdraw () + draw_image(img)
+
+#####
 
 df <- fread ("~/Library/CloudStorage/OneDrive-UniversityofEasternFinland/Work/Projects/mQTL_pQTL/Proetin_Vs_Metabolite_Dynamics.txt")
 p1 <- ggscatter(df, x = "mean_standardized_protein_level", y = "mean_standardized_metabolomic_level", color = "red",
-               size = 2, alpha = 0.6, ggtheme = theme_bw(), add = "reg.line", conf.int = TRUE, 
-               cor.method = "spearman", add.params = list(color = "black", fill = "lightgray")) +
+                size = 2, alpha = 0.6, ggtheme = theme_bw(), add = "reg.line", conf.int = TRUE, 
+                cor.method = "spearman", add.params = list(color = "black", fill = "lightgray")) +
   stat_cor(method = "spearman", r.accuracy = 0.1)
-p1 <- p1 + labs(title = "D", x=expression("Mean Standardized Proteome Level"), y=expression("Mean Standardized Metabolome Level"))
+p1 <- p1 + labs(title = "C", x=expression("Mean Standardized Proteome Level"), y=expression("Mean Standardized Metabolome Level"))
 p1 <- p1 + scale_x_continuous(breaks = round(seq(-1, 3, by = 0.5),1))
 p1 <- p1 + scale_y_continuous(breaks = round (seq (-1, 5, by = 0.5), 1))
 p1 <- p1 +
@@ -61,10 +50,7 @@ p1 <- p1 +
         axis.text.y = element_text(family = "serif", size=14),
         panel.background = element_blank())
 
-
-#! /Library/Frameworks/R.framework/Versions/4.2/Resources/bin/Rscript
-library(data.table)
-library (ggplot2)
+##################
 
 df <- fread ("~/Library/CloudStorage/OneDrive-UniversityofEasternFinland/Work/Projects/CSF_Metabolomics/Analyses_2/Mean_Metabolite_Level_Pathology/Result_Mean_Metabolite_Level_Pathology.txt")
 
@@ -86,9 +72,8 @@ p2 <- p2 +
         axis.title.y = element_text(family = "serif", size=16),
         axis.text.x = element_text(family = "serif", size=14),
         axis.text.y = element_text(family = "serif", size=14)) +
-  labs(tag = "*adjusted for other co-pathology", title = "E") +
+  labs(tag = "*adjusted for other co-pathology", title = "D") +
   theme(plot.tag.position = c(0.15, 0.02))
 
-plot <- ggarrange(Meta_Mat_p, p, NULL, p1, NULL, p2)
+plot <- ggarrange(p, img_plot, p1, p2)
 plot
-
