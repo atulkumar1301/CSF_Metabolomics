@@ -27,7 +27,7 @@ p <- p + scale_x_continuous(breaks = round(seq(-1.5, 0.5, by = 0.1),1))
 p <- p + scale_y_continuous(breaks = round (seq (0, 10, by = 2), 1))
 p <- p + xlab ("Effect") + labs (color = "Regulation") + ylab (expression (-log[10]~(P)))
 p <- p +
-  theme(legend.position="left",
+  theme(legend.position="none",
         plot.title = element_text(family = "serif", size=18, face = "bold", hjust = 0.5),
         axis.title.x = element_text(family = "serif", size=16),
         axis.title.y = element_text(family = "serif", size=16),
@@ -53,7 +53,7 @@ p_2 <- p_2 + scale_x_continuous(breaks = round(seq(-0.6, 0.4, by = 0.1),1))
 p_2 <- p_2 + scale_y_continuous(breaks = round (seq (0, 11, by = 2), 1))
 p_2 <- p_2 + xlab ("Effect") + labs (color = "Regulation") + ylab (expression (-log[10]~(p)))
 p_2 <- p_2 +
-  theme(legend.position="left",
+  theme(legend.position="none",
         plot.title = element_text(family = "serif", size=18, face = "bold", hjust = 0.5),
         axis.title.x = element_text(family = "serif", size=16),
         axis.title.y = element_text(family = "serif", size=16),
@@ -129,7 +129,7 @@ p_1 <- p_1 + scale_x_continuous(breaks = round(seq(-0.3, 0.3, by = 0.1),1))
 p_1 <- p_1 + scale_y_continuous(breaks = round (seq (0, 8, by = 1), 1))
 p_1 <- p_1 + xlab ("Effect") + labs (color = "Regulation") + ylab (expression (-log[10]~(P)))
 p_1 <- p_1 +
-  theme(legend.position="left",
+  theme(legend.position="none",
         plot.title = element_text(family = "serif", size=18, face = "bold", hjust = 0.5),
         axis.title.x = element_text(family = "serif", size=16),
         axis.title.y = element_text(family = "serif", size=16),
@@ -155,7 +155,7 @@ p_3 <- p_3 + scale_x_continuous(breaks = round(seq(-0.6, 0.4, by = 0.1),1))
 p_3 <- p_3 + scale_y_continuous(breaks = round (seq (0, 8, by = 1), 1))
 p_3 <- p_3 + xlab ("Effect") + labs (color = "Regulation") + ylab (expression (-log[10]~(p)))
 p_3 <- p_3 +
-  theme(legend.position="left",
+  theme(legend.position="none",
         plot.title = element_text(family = "serif", size=18, face = "bold", hjust = 0.5),
         axis.title.x = element_text(family = "serif", size=16),
         axis.title.y = element_text(family = "serif", size=16),
@@ -219,9 +219,12 @@ p_7 <- p_7 +
 p_7
 
 
-plot <- ggarrange(p, p_1, p_2, p_3, p_4, p_5, p_6, p_7, common.legend = TRUE, legend = "bottom", ncol = 4, nrow = 2)
+plot <- ggarrange(p, p_1, p_2, p_3)
 
+plot1 <- ggarrange(p_4, p_5, p_6, p_7, common.legend = TRUE, legend = "bottom")
 
 plot
+
+plot1
 
 
