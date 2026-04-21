@@ -26,7 +26,7 @@ p <- p + scale_x_continuous(breaks = round(seq(-0.2, 0.2, by = 0.1),1))
 p <- p + scale_y_continuous(breaks = round (seq (0, 10, by = 1), 1))
 p <- p + xlab ("Effect") + labs (color = "Regulation") + ylab (expression (-log[10]~(P)))
 p <- p +
-  theme(legend.position="left",
+  theme(legend.position="none",
         plot.title = element_text(family = "serif", size=18, face = "bold", hjust = 0.5),
         axis.title.x = element_text(family = "serif", size=16),
         axis.title.y = element_text(family = "serif", size=16),
@@ -52,7 +52,7 @@ p_2 <- p_2 + scale_x_continuous(breaks = round(seq(-0.25, 0.15, by = 0.1),1))
 p_2 <- p_2 + scale_y_continuous(breaks = round (seq (0, 11, by = 1), 1))
 p_2 <- p_2 + xlab ("Effect") + labs (color = "Regulation") + ylab (expression (-log[10]~(p)))
 p_2 <- p_2 +
-  theme(legend.position="left",
+  theme(legend.position="none",
         plot.title = element_text(family = "serif", size=18, face = "bold", hjust = 0.5),
         axis.title.x = element_text(family = "serif", size=16),
         axis.title.y = element_text(family = "serif", size=16),
@@ -130,7 +130,7 @@ p_1 <- p_1 + scale_x_continuous(breaks = round(seq(-0.2, 0.2, by = 0.1),1))
 p_1 <- p_1 + scale_y_continuous(breaks = round (seq (0, 8, by = 1), 1))
 p_1 <- p_1 + xlab ("Effect") + labs (color = "Regulation") + ylab (expression (-log[10]~(P)))
 p_1 <- p_1 +
-  theme(legend.position="left",
+  theme(legend.position="none",
         plot.title = element_text(family = "serif", size=18, face = "bold", hjust = 0.5),
         axis.title.x = element_text(family = "serif", size=16),
         axis.title.y = element_text(family = "serif", size=16),
@@ -156,7 +156,7 @@ p_3 <- p_3 + scale_x_continuous(breaks = round(seq(-0.2, 0.15, by = 0.1),1))
 p_3 <- p_3 + scale_y_continuous(breaks = round (seq (0, 8, by = 1), 1))
 p_3 <- p_3 + xlab ("Effect") + labs (color = "Regulation") + ylab (expression (-log[10]~(p)))
 p_3 <- p_3 +
-  theme(legend.position="left",
+  theme(legend.position="none",
         plot.title = element_text(family = "serif", size=18, face = "bold", hjust = 0.5),
         axis.title.x = element_text(family = "serif", size=16),
         axis.title.y = element_text(family = "serif", size=16),
@@ -219,10 +219,12 @@ p_7 <- p_7 +
         panel.background = element_blank()) + labs(title=expression("H WML:: Adjusted for other co-pathologies"))
 p_7
 
-plot <- ggarrange(p, p_1, p_2, p_3, p_4, p_5, p_6, p_7, common.legend = TRUE, legend = "bottom", ncol = 2, nrow = 4)
+plot <- ggarrange(p, p_1, p_2, p_3)
 
 plot
 
+plot1 <- ggarrange(p_4, p_5, p_6, p_7, common.legend = TRUE, legend = "bottom")
+
+plot1
+
 #annotate_figure(plot, top = text_grob(expression("Effects of neurodegenerative disease pathology on CSF Metabolites Sub Pathways when adjusted for other pathologies"), color = "#999999", face = "bold", size = 18, family = "serif"))
-
-
