@@ -1,12 +1,9 @@
 library(data.table)
 library(ggpubr)
 library(ggplot2)
-library(ggcorrplot)
-library(corrr)
-library(dplyr)
-library(cowplot)
 library(magick)
-library(gridExtra)
+library(pdftools)
+library(cowplot)
 
 ##############
 Cumulative_Variance <- fread ("~/Library/CloudStorage/OneDrive-UniversityofEasternFinland/Work/Projects/CSF_Metabolomics/Analyses_1/PCA/12_Cumulative_Variance.txt")
@@ -29,7 +26,8 @@ p <- p +
 
 
 #########
-img <- image_read ("~/OneDrive - University of Eastern Finland/Work/Projects/mQTL_pQTL/Metabolomics/metabolomics.jpg")
+pdf_img <- pdf_render_page ("~/OneDrive - University of Eastern Finland/Work/Projects/CSF_Metabolomics/Manuscript/New_Figures/metabolomics.pdf", dpi = 300)
+img <- image_read (pdf_img)
 img_plot <- ggdraw () + draw_image(img)
 
 #####
